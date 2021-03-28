@@ -1,3 +1,6 @@
+###Disclaimer:
+- we are getting started a bit late (finishing obligations at University)
+
 # Chainlink Hardhat Box
  Implementation of the following 3 Chainlink features using the [Hardhat](https://hardhat.org/) development environment:
  - [Request & Receive data](https://docs.chain.link/docs/request-and-receive-data)
