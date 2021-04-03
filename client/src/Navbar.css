@@ -1,0 +1,22 @@
+.navbar-wrapper {
+    height: 80px;
+    top: 0 !important;
+    background-color: #ECECEC;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    position: relative;
+    float: left;
+    padding-left: 4%;
+}
+
+.address {
+    position: relative;
+    float: right;
+    padding-right: 4%;
+}
