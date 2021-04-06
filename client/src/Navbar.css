@@ -20,3 +20,8 @@
     float: right;
     padding-right: 4%;
 }
+
+.role {
+    position: fixed;
+    right: 50%;
+}

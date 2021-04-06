@@ -12,7 +12,14 @@ class App extends Component {
     super(props)
     this.state = {
       account: '',
+      town: 'placeholder',
+      fname: '',
+      lname: '',
+      dob: '',
+      ssn: ''
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.testAPI = this.testAPI.bind(this);
   }
 
   async componentWillMount() {
@@ -40,11 +47,23 @@ class App extends Component {
     this.setState({ account: accounts[0] })
   }
 
+  handleChange = (event) => {
+    this.setState({
+        [event.target.name]: event.target.value
+    });
+  };
+
+  testAPI = async() => {
+    let response = await fetch()
+    let data = await response.json()
+    console.log(data)
+  }
+
   render() {
     return (
       <div className="App">
-          <Navbar account={this.state.account}/>
-          <AdminHome />
+          <Navbar account={this.state.account} town={this.state.town} />
+          <button onClick={this.testAPI}>TEST</button>
       </div>
     );
   }
