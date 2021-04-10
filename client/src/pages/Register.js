@@ -25,19 +25,19 @@ class Register extends Component {
                 <form>
                     <div className="field">
                         <label for="fname">First name:</label>
-                        <input type="text" id="fname" name="fname" value={this.state.firstName} onChange={this.props.handle} /><br />
+                        <input type="text" id="fname" name="fname" value={this.props.fname} onChange={this.props.handle} /><br />
                     </div>
                     <div className="field">
                         <label for="lname">Last name:</label>
-                        <input type="text" id="lname" name="lname" value={this.state.lname} onChange={this.props.handle}/><br />
+                        <input type="text" id="lname" name="lname" value={this.props.lname} onChange={this.props.handle}/><br />
                     </div>
                     <div className="field">
                         <label for="dob">Date of birth:</label>
-                        <input type="date" id="dob" name="dob" value={this.state.dob} onChange={this.props.handle}/><br />
+                        <input type="date" id="dob" name="dob" value={this.props.dob} onChange={this.props.handle}/><br />
                     </div>
                     <div className="field">
                         <label for="ssn">SSN:</label>
-                        <input type="text" id="ssn" name="ssn" maxlength="11" placeholder="###-##-####" value={this.state.ssn} onChange={this.props.handle} />
+                        <input type="text" id="ssn" name="ssn" maxlength="11" placeholder="###-##-####" value={this.props.ssn} onChange={this.props.handle} />
                     </div>
                 </form>
                 <button onClick={this.props.register}>Register</button>

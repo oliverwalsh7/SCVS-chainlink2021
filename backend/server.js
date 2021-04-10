@@ -23,7 +23,11 @@ server.on('request', async (request, response) => {
       dob='${URLParams.get('dob')}'`
     console.log(query)
     await getDB(query)
-    response.writeHead(200, {'Content-Type': 'application/json'})
+    response.writeHead(200, {
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Origin" : "*",
+    'Content-Type': 'application/json'
+  })
     response.end(JSON.stringify(resp));
   } else {
     console.log('GET')
@@ -37,10 +41,12 @@ server.on('request', async (request, response) => {
         dob='${URLParams.get('dob')}' AND
         address IS NULL`
     } else if (URLParams.get('type') == 2) {
-      console.log("type 2 request")
       query = `SELECT ssn, first_name, last_name, dob, town, state FROM linktopia 
       ORDER BY RANDOM()
       LIMIT 1`
+    } else if (URLParams.get('type') == 3) {
+      query = `SELECT * from linktopia WHERE
+      address='${URLParams.get('address')}'`
     }
     await getDB(query)
     console.log(resp)
