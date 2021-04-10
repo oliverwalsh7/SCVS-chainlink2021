@@ -19,7 +19,8 @@ class App extends Component {
       ssn: ''
     }
     this.handleChange = this.handleChange.bind(this);
-    this.testAPI = this.testAPI.bind(this);
+    this.getCitizen = this.getCitizen.bind(this);
+    this.postAddress = this.postAddress.bind(this);
   }
 
   async componentWillMount() {
@@ -53,8 +54,49 @@ class App extends Component {
     });
   };
 
-  testAPI = async() => {
-    let response = await fetch()
+  getCitizen = async() => {
+
+    var url = new URL("http://localhost:8081/")
+    var params = { 
+      "ssn": "233-72-0360",
+      "fname": "Abrahan",
+      "lname": "Darinton",
+      "dob": "1944-02-10",
+      "type": 2,
+    }
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+    let response = await fetch(url,  {
+      method: "get",
+      mode: "no-cors",
+      headers: {
+          "Content-Type": "application/json"
+      }
+      })
+      
+    let data = await response.json()
+    console.log(data)
+  }
+
+  postAddress = async() => {
+    var url = new URL("http://localhost:8081/")
+    var params = { 
+      "ssn": "233-72-0360",
+      "fname": "Abrahan",
+      "lname": "Darinton",
+      "dob": "1944-02-10",
+      "address": this.state.account,
+    }
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+    let response = await fetch(url,  {
+      method: "post",
+      mode: "no-cors",
+      headers: {
+          "Content-Type": "application/json"
+      }
+      })
+      
     let data = await response.json()
     console.log(data)
   }
@@ -63,7 +105,9 @@ class App extends Component {
     return (
       <div className="App">
           <Navbar account={this.state.account} town={this.state.town} />
-          <button onClick={this.testAPI}>TEST</button>
+          <button onClick={this.getCitizen}>GET</button>
+          <button onClick={this.postAddress}>POST</button>
+
       </div>
     );
   }
