@@ -1,1 +1,13 @@
+
+## NM
 node_modules
+client/node_modules
+backend/node_modules
+
+## ENV
+backend/.env
+.env
+client/.env
+
+##LOCKFILES
+yarn.lock
