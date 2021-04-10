@@ -105,8 +105,12 @@ class App extends Component {
     return (
       <div className="App">
           <Navbar account={this.state.account} town={this.state.town} />
-          <button onClick={this.getCitizen}>GET</button>
-          <button onClick={this.postAddress}>POST</button>
+          {/* <button onClick={this.getCitizen}>GET</button>
+          <button onClick={this.postAddress}>POST</button> */}
+
+          <Register handle={this.handleChange} />
+          {/* <VoterHome /> */}
+          {/* <AdminHome /> */}
 
       </div>
     );
