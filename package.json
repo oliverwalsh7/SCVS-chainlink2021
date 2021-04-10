@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm --prefix /client run start",
-    "heroku-start": "npm --prefix /client run start && npm --prefix /backend run start"
+    "start": "npm --prefix ./client run start",
+    "heroku-start": "npm --prefix ./client run start && nodemon --prefix ./backend server.js"
 
   },
   "keywords": [],
