@@ -37,10 +37,10 @@ class Register extends Component {
                     </div>
                     <div className="field">
                         <label for="ssn">SSN:</label>
-                        <input type="text" id="ssn" name="ssn" maxlength="9" placeholder="#########" value={this.state.ssn} onChange={this.props.handle} />
+                        <input type="text" id="ssn" name="ssn" maxlength="11" placeholder="###-##-####" value={this.state.ssn} onChange={this.props.handle} />
                     </div>
                 </form>
-                <button onClick={() => console.log(this.state)}>Register</button>
+                <button onClick={this.props.register}>Register</button>
             </div>
         )
     }

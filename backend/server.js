@@ -12,7 +12,6 @@ server.listen(port, host)
 console.log(`Listening at http://${host}:${port}`)
 
 server.on('request', async (request, response) => {
-  //console.dir(request.param)
   if (request.method == 'POST') {
     console.log('POST')
     let URLParams = new URLSearchParams(request.url)
@@ -23,7 +22,7 @@ server.on('request', async (request, response) => {
       last_name='${URLParams.get('lname')}' AND
       dob='${URLParams.get('dob')}'`
     console.log(query)
-    getDB(query)
+    await getDB(query)
     response.writeHead(200, {'Content-Type': 'application/json'})
     response.end(JSON.stringify(resp));
   } else {
@@ -38,15 +37,20 @@ server.on('request', async (request, response) => {
         dob='${URLParams.get('dob')}' AND
         address IS NULL`
     } else if (URLParams.get('type') == 2) {
-      query = `SELECT * FROM linktopia WHERE
-      address IS NULL
+      console.log("type 2 request")
+      query = `SELECT ssn, first_name, last_name, dob, town, state FROM linktopia 
       ORDER BY RANDOM()
       LIMIT 1`
     }
-    getDB(query)
-    response.writeHead(200, {'Content-Type': 'application/json'})
+    await getDB(query)
+    console.log(resp)
+    response.writeHead(200, {
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Origin" : "*",
+      'Content-Type': 'application/json'
+    })
     response.end(JSON.stringify(resp));
-  }  
+  } 
 })
 
 getDB = async(query) => {
@@ -64,7 +68,6 @@ getDB = async(query) => {
       resp = result.rows[0]
       
       client.end();
-      console.log(resp)
       return resp;
     });
   });

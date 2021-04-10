@@ -16,11 +16,16 @@ class App extends Component {
       fname: '',
       lname: '',
       dob: '',
-      ssn: ''
+      ssn: '',
+      registered: false,
+      citizen: {
+        
+      }
     }
     this.handleChange = this.handleChange.bind(this);
     this.getCitizen = this.getCitizen.bind(this);
     this.postAddress = this.postAddress.bind(this);
+    this.register = this.register.bind(this);
   }
 
   async componentWillMount() {
@@ -41,50 +46,53 @@ class App extends Component {
     }
     console.log(this.state.address)
   }
-
+  
   async loadBlockchainData() {
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
   }
-
+  
   handleChange = (event) => {
     this.setState({
-        [event.target.name]: event.target.value
+      [event.target.name]: event.target.value
     });
   };
 
-  getCitizen = async() => {
+  async getCitizen(type) {
 
     var url = new URL("http://localhost:8081/")
     var params = { 
-      "ssn": "233-72-0360",
-      "fname": "Abrahan",
-      "lname": "Darinton",
-      "dob": "1944-02-10",
-      "type": 2,
+      "ssn": this.state.ssn,
+      "fname": this.state.fname,
+      "lname": this.state.lname,
+      "dob": this.state.dob,
+      "type": type,
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
-    let response = await fetch(url,  {
+    const resp = await fetch(url,  {
       method: "get",
-      mode: "no-cors",
+      mode: "cors",
       headers: {
-          "Content-Type": "application/json"
-      }
-      })
-      
-    let data = await response.json()
-    console.log(data)
+        "Access-Control-Allow-Origin" : "*",
+        "Content-Type": "application/json"
+      },
+    }).then((resp) => resp.json()).then(resp => {
+      console.log(resp)
+      this.setState({citizen: resp})
+    })
+
+    return resp
   }
 
   postAddress = async() => {
     var url = new URL("http://localhost:8081/")
     var params = { 
-      "ssn": "233-72-0360",
-      "fname": "Abrahan",
-      "lname": "Darinton",
-      "dob": "1944-02-10",
+      "ssn": this.state.ssn,
+      "fname": this.state.fname,
+      "lname": this.state.lname,
+      "dob": this.state.dob,
       "address": this.state.account,
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
@@ -93,12 +101,20 @@ class App extends Component {
       method: "post",
       mode: "no-cors",
       headers: {
-          "Content-Type": "application/json"
+        "Access-Control-Allow-Origin" : "*",
+        "Content-Type": "application/json"
       }
       })
       
     let data = await response.json()
+    console.log("SUCCESSFUL POST")
     console.log(data)
+  }
+
+  register = async() => {
+    console.log(`${this.state.fname} ${this.state.lname} ${this.state.dob} ${this.state.ssn}`)
+    let resp = await this.getCitizen(1)
+    console.log(resp)
   }
 
   render() {
@@ -108,9 +124,10 @@ class App extends Component {
           {/* <button onClick={this.getCitizen}>GET</button>
           <button onClick={this.postAddress}>POST</button> */}
 
-          <Register handle={this.handleChange} />
           {/* <VoterHome /> */}
           {/* <AdminHome /> */}
+          <button onClick={async () => this.getCitizen(2)}>get rando</button>
+          <button onClick={async () => console.log(this.state.citizen)}> Please </button>
 
       </div>
     );
