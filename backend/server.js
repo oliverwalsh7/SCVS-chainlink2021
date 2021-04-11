@@ -16,7 +16,9 @@ var resp = ''
 startExpress = async() => {
   const app = express()
 
-  var allowedOrigins = ['http://localhost:8081'];
+  var allowedOrigins = [
+    'https://electchain-scvs.herokuapp.com/'
+    'http://localhost:8081'];
 
   app.use(cors({
 
@@ -113,7 +115,7 @@ startExpress = async() => {
       res.send(resp)
     }})
 
-  const port = 8081
+  const port = process.env.PORT || 8081
   app.listen(port, () => {
     console.log(`Listening on port ${port}`)
   })
